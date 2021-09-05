@@ -1,0 +1,68 @@
+<html>
+    <body>
+        <script>
+            console.log('enter jai');
+
+            //curren value,index,array
+            if(!Array.prototype.fFilter){
+                Object.defineProperty(Array.prototype,'fFilter',{
+                    value:function(callback,thisArg){
+                        if(this == null){
+                            throw new TypeError(this + 'should not be equal to null or undefined');
+                        }
+                        if(typeof callback != 'function'){
+                            throw new TypeError(callback + 'is not a function');
+                        }
+                        // if(thisArg != ''){
+                        //     for(var i in thisArg){
+                        //         console.log(thisArg[i])
+                        //     }
+                        // }
+                        var o=Object(this);
+                        var len=o.length;
+                        var k=0;
+                        var result=new Array();
+                        if(k>=len){
+                            throw new TypeError('please assign any value to array')
+                        }else{
+                            while(k<len){
+                                if(thisArg != ''){
+                                    if(callback.call(thisArg,o[k],k,o) == true){
+                                    result.push(o[k]);
+                                }
+                                }else{
+                                    if(callback(o[k],k,o) == true){
+                                    result.push(o[k]);
+                                }
+                                }
+                                
+                                k++;
+                            }
+                        }
+                        console.log(result);
+                    }
+                })
+            }
+
+
+            function Ob1(){
+                this.arr=[10,20];
+                this.arr1=[20,30];
+            }
+            function Ob2(){
+                this.arr=[10,20,30,40]
+            }
+            var ob1=new Ob1();
+
+            var ob2=new Ob2();
+
+
+            var arr=[10,20,40,50,80,90];
+            var result=arr.fFilter(function(a,b){
+                return a>35;
+            },Ob1);
+            console.log(result);
+
+        </script>
+    </body>
+</html>
