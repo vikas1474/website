@@ -1,5 +1,4 @@
-ls
-FROM  vikas1474
+FROM  vikas1474/webapp
 ADD . /var/www/html
 
 
